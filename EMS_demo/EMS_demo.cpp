@@ -20,7 +20,7 @@ class timer :public ITimerEngineCallBack
 int main()
 {
 	//load_data();
-	GEngine.StartEngine();
+	GEngine.StartEngine();  
 	timer tt;
 	GEngine.AddTimer(&tt, 1, 1000, 10);
 	GEngine.AddTimer(&tt, 2, 2000, INFINITE);
