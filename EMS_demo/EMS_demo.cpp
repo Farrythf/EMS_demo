@@ -18,11 +18,12 @@ class timer :public ITimerEngineCallBack
 		if (TimerID == 1)
 		{
 			cout << "this is no.1\n";
-			Check_SOC();
+			//Check_SOC();
 		}
 		else if (TimerID == 2)
 		{
 			cout << "this is no.2\n";
+			Call_EMS();
 		}
 		//printf("This is %u param:%u\n", TimerID, Param);
 		return true;
@@ -43,8 +44,8 @@ int main()
 	Data_load();
 	GEngine.StartEngine();  
 	timer tt;
-	GEngine.AddTimer(&tt, 1, 10000, INFINITY);
-	GEngine.AddTimer(&tt, 2, 2000, INFINITE);
+	GEngine.AddTimer(&tt, 1, 1000, INFINITY);
+	GEngine.AddTimer(&tt, 2, 1000, INFINITE);
 
 	while (1);
 
