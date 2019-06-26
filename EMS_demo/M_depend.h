@@ -33,7 +33,7 @@
 #include "TimerEngine.h"
 
 
-extern float load[96][12], PV[96][12], SOC[96][12], net_load[96][12];
+extern float load[96][12], PV[96][12], net_load[96][12];
 extern PGconn* conn;
 
 #endif

@@ -1,37 +1,56 @@
 #include "M_depend.h"
 
+#define SOC_UP_BOUND 90
+#define SOC_LOW_BOUND 20
+#define PCS_MIN_VALUE 20
+#define PCS_MAX_VALUE 280
+#define MAX 0
+#define MIN 999999
+#define RATE 0
+
 int  Call_EMS()
 {
+	char* s;
+	float SOC;
+	int Temp_PCS = 0;
+	char time[100];
+	char SQL_com[100];
+	SYSTEMTIME st = { 0 };
 	static int i = 1, j = 0;
-	float Temp_SOC;
-	if (net_load[i][j] > 0.9)
+	PGresult* result = PQexec(conn, "SELECT * FROM estimate WHERE times in (select max(times) from pcs_data)");
+	std::cout << PQresultErrorMessage(result);
+	s = PQgetvalue(result, 0, 2);
+	SOC = atof(s);
+	if (net_load[i][j] > MAX)
 	{
-		Temp_SOC = SOC[i - 1][j] - 0.25 * (net_load[i][j] - 0.9) / 0.2;
-		if (Temp_SOC > 0.05)
-		{
-			SOC[i][j] = Temp_SOC;
-		}
-		else
-		{
-			SOC[i][j] = SOC[i - 1][j];
-		}
+		Temp_PCS = (net_load[i][j] - MAX) * RATE;//////////////////////////////////////////////////////
+		if (Temp_PCS > PCS_MAX_VALUE)
+			Temp_PCS = PCS_MAX_VALUE;
+		else if (Temp_PCS < PCS_MIN_VALUE)
+			Temp_PCS = PCS_MIN_VALUE;
+		if (SOC < SOC_LOW_BOUND)
+			Temp_PCS = 0;
 	}
-	else if (net_load[i][j] < 0.5)
+	else if (net_load[i][j] < MIN)
 	{
-		Temp_SOC = SOC[i - 1][j] + 0.25 * (0.5 - net_load[i][j]) / 0.2;
-		if (Temp_SOC < 0.95)
-		{
-			SOC[i][j] = Temp_SOC;
-		}
-		else
-		{
-			SOC[i][j] = SOC[i - 1][j];
-		}
+		Temp_PCS = (MIN - net_load[i][j]) * RATE;//////////////////////////////////////////////////////
+		if (Temp_PCS > PCS_MAX_VALUE)
+			Temp_PCS = -PCS_MAX_VALUE;
+		else if (Temp_PCS < PCS_MIN_VALUE)
+			Temp_PCS = -PCS_MIN_VALUE;
+		if (SOC < SOC_LOW_BOUND)
+			Temp_PCS = 0;
 	}
 	else
 	{
-		SOC[i][j] = SOC[i - 1][j];
+		Temp_PCS = 0;
 	}
+	GetLocalTime(&st);
+	sprintf_s(time, "'%d-%d-%d %d:%d:%d.%d'", st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds);
+	sprintf_s(SQL_com, "INSERT INTO pcs_control VALUES( %s, %d)", time, Temp_PCS);
+	result = PQexec(conn, SQL_com);
+	std::cout << PQresultErrorMessage(result);
+	PQclear(result);
 	i++;
 	if (i == 96)
 	{

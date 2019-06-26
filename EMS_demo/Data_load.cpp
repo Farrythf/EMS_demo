@@ -1,6 +1,6 @@
 #include "Data_load.h"
 
-float load[96][12], PV[96][12], SOC[96][12], net_load[96][12];
+float load[96][12], PV[96][12], net_load[96][12];
 
 using namespace std;
 
@@ -88,10 +88,5 @@ void Data_load()
 		{
 			net_load[i][j] = united_load[i][j] - united_PV[i][j];
 		}
-	}
-
-	for (int j = 0; j < 12; j++)
-	{
-		SOC[0][j] = 0.5;
 	}
 }
