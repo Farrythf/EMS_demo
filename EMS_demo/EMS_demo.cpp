@@ -1,9 +1,12 @@
 // EMS_demo.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-float load[96][12], PV[96][12], SOC[96][12], net_load[96][12];
+
 
 #include "M_depend.h"
-#include "TimerEngine.h"
+
+
+PGconn* conn;
+
 using namespace std;
 
 TimerEngine GEngine;
@@ -12,19 +15,39 @@ class timer :public ITimerEngineCallBack
 {
 	virtual bool OnTimerEngineCallBack(DWORD TimerID, DWORD Param)
 	{
-		printf("This is %u param:%u\n", TimerID, Param);
+		if (TimerID == 1)
+		{
+			cout << "this is no.1\n";
+			Check_SOC();
+		}
+		else if (TimerID == 2)
+		{
+			cout << "this is no.2\n";
+		}
+		//printf("This is %u param:%u\n", TimerID, Param);
 		return true;
 	}
 };
 
 int main()
 {
-	//load_data();
+	conn = PQsetdbLogin("127.0.0.1", "5432", NULL, NULL, "mydatabase", "user1", "1234");
+	if (conn == NULL)
+
+	{
+
+		cout << "Connection Error" << endl;
+
+	}
+
+	Data_load();
 	GEngine.StartEngine();  
 	timer tt;
-	GEngine.AddTimer(&tt, 1, 1000, 10);
+	GEngine.AddTimer(&tt, 1, 10000, INFINITY);
 	GEngine.AddTimer(&tt, 2, 2000, INFINITE);
+
 	while (1);
+
 	return 0;
 }
 

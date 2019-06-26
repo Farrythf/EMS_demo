@@ -1,6 +1,6 @@
 #include "M_depend.h"
 
-void  Call_EMS()
+int  Call_EMS()
 {
 	static int i = 1, j = 0;
 	float Temp_SOC;
@@ -33,9 +33,36 @@ void  Call_EMS()
 		SOC[i][j] = SOC[i - 1][j];
 	}
 	i++;
-	if (i == 95)
+	if (i == 96)
 	{
-		i = 0;
+		i = 1;
 		j++;
+		if (j == 12)
+		{
+			return 0;
+		}
 	}
+}
+
+int Check_SOC()
+{
+	char* s;
+	char time[100];
+	char SQL_com[100];
+	float res;
+	SYSTEMTIME st = { 0 };
+	GetLocalTime(&st);
+	PGresult* result = PQexec(conn, "SELECT * FROM estimate WHERE times in (select max(times) from pcs_data)");
+	std::cout << PQresultErrorMessage(result);
+	s = PQgetvalue(result, 0, 2);
+	res = atof(s);
+	if (res > 90 || res < 10)
+	{
+		sprintf_s(time, "'%d-%d-%d %d:%d:%d.%d'", st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds);
+		sprintf_s(SQL_com, "INSERT INTO pcs_control VALUES( %s, 0)", time);
+		result = PQexec(conn, SQL_com);
+		std::cout << PQresultErrorMessage(result);
+	}
+	PQclear(result);
+	return 0;
 }

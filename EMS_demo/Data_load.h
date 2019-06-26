@@ -5,7 +5,7 @@
 
 #include "M_depend.h"
 
-void load_data();
+void Data_load();
 
 #endif // DATA_LOAD_H
 

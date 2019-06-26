@@ -1,8 +1,10 @@
 #include "Data_load.h"
 
+float load[96][12], PV[96][12], SOC[96][12], net_load[96][12];
+
 using namespace std;
 
-void load_data()
+void Data_load()
 {
 	ifstream file("GEIRINA_load.csv", ios::in);
 	string line;
@@ -23,7 +25,6 @@ void load_data()
 		b = 0;
 	}
 	file.close();
-	cout << load[0][0];
 	a = 0;
 	b = 0;
 	ifstream file1("PV.csv", ios::in);
@@ -88,5 +89,9 @@ void load_data()
 			net_load[i][j] = united_load[i][j] - united_PV[i][j];
 		}
 	}
-	memset(SOC, 0.5, sizeof(SOC));
+
+	for (int j = 0; j < 12; j++)
+	{
+		SOC[0][j] = 0.5;
+	}
 }

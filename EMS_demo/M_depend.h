@@ -21,6 +21,7 @@
 #include <excpt.h>
 #include <tchar.h>
 #include <windows.h>
+#include <libpq-fe.h>
 //#include "debug.h"
 //#include <mutex>
 //#include <list>
@@ -29,10 +30,10 @@
 
 #include "Simple_Algorithms.h"
 #include "Data_load.h"
-
+#include "TimerEngine.h"
 
 
 extern float load[96][12], PV[96][12], SOC[96][12], net_load[96][12];
-
+extern PGconn* conn;
 
 #endif
