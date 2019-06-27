@@ -3,37 +3,36 @@
 
 
 #include "M_depend.h"
-
-
-PGconn* conn;
-
 using namespace std;
 
-TimerEngine GEngine;
+PGconn* conn;			//postgreSQL connection init
+TimerEngine GEngine;	//timer init
 
 class timer :public ITimerEngineCallBack
 {
-	virtual bool OnTimerEngineCallBack(DWORD TimerID, DWORD Param)
+	virtual bool OnTimerEngineCallBack(DWORD TimerID, DWORD Param)	//All timers complete callback function
 	{
-		if (TimerID == 1)
+		switch (TimerID)
 		{
-			cout << "this is no.1\n";
+		case 1:
+			cout << "this is no.1\n";	//timer 1 response
 			//Check_SOC();
+			break;
+		case 2:
+			cout << "this is no.2\n";	//timer 2 response
+			//Call_EMS();
+			break;
+		default:
+			break;
 		}
-		else if (TimerID == 2)
-		{
-			cout << "this is no.2\n";
-			Call_EMS();
-		}
-		//printf("This is %u param:%u\n", TimerID, Param);
 		return true;
 	}
 };
 
 int main()
 {
-	conn = PQsetdbLogin("127.0.0.1", "5432", NULL, NULL, "mydatabase", "user1", "1234");
-	if (conn == NULL)
+	conn = PQsetdbLogin("127.0.0.1", "5432", NULL, NULL, "mydatabase", "user1", "1234");	//postgreSQL connection: subdatabase-"mydatabase", user:"user1", password:"1234"
+	if (conn == NULL)		//error handle
 
 	{
 
@@ -41,14 +40,16 @@ int main()
 
 	}
 
-	Data_load();
-	GEngine.StartEngine();  
-	timer tt;
-	GEngine.AddTimer(&tt, 1, 1000, INFINITY);
-	GEngine.AddTimer(&tt, 2, 1000, INFINITE);
+	Data_load();								//Load pv and load data from csv file
+	GEngine.StartEngine();						//timer's engine starts
+	timer tt;									//timer instantiate
+	GEngine.AddTimer(&tt, 1, 1000, INFINITY);	//timer 1 init
+	GEngine.AddTimer(&tt, 2, 1000, INFINITE);	//timer 2 init
 
-	while (1);
-
+	while (1) {
+		//Call_EMS();
+	}
+												//never reach here//
 	return 0;
 }
 
