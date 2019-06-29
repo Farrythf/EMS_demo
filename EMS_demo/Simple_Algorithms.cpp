@@ -12,7 +12,7 @@
 int  Call_EMS()
 {
 	//file init for test
-	std::ofstream f1("PSC.csv", std::ios::app);
+	std::ofstream f1("PCS.csv", std::ios::app);
 	if (!f1)
 	{
 		std::cout << "Fill open failed!\n";
@@ -22,17 +22,28 @@ int  Call_EMS()
 	{
 		std::cout << "Fill open failed!\n";
 	}
+	std::ofstream f3("SOC.csv", std::ios::app);
+	if (!f3)
+	{
+		std::cout << "Fill open failed!\n";
+	}
+	std::ofstream f4("inter.csv", std::ios::app);
+	if (!f4)
+	{
+		std::cout << "Fill open failed!\n";
+	}
+	static int p=1;
 	//////////////////////
 
 	char* s;				//capture the response from db
 	float SOC;				//soc from db
 	int Temp_PCS = 0;		//pcs for control
 	char time[100];			//timestamp format
-	char SQL_com[100];		//quary format
+	char SQL_com[1000];		//quary format
 	SYSTEMTIME st = { 0 };
 	static int i = 1, j = 0;
 
-	PGresult* result = PQexec(conn, "SELECT * FROM estimate WHERE times in (select max(times) from estimate)");
+	PGresult* result = PQexec(conn, "SELECT * FROM estimate WHERE p in (select max(p) from estimate)");
 	std::cout << PQresultErrorMessage(result);
 	s = PQgetvalue(result, 0, 2);		//get postgre response
 	SOC = atof(s);						//trans to float
@@ -40,23 +51,23 @@ int  Call_EMS()
 	//if netload larger than max, es will discharge
 	if (net_load[i][j] > MAX)	
 	{
-		Temp_PCS = (net_load[i][j] - MAX) * PCS_RATE * 10;		//单位是百瓦所以乘10
+		Temp_PCS = (net_load[i][j] - MAX) * PCS_RATE * 10 * 14;		//单位是百瓦所以乘10
 		if (Temp_PCS > PCS_MAX_VALUE * 10)
 			Temp_PCS = PCS_MAX_VALUE * 10;
 		else if (Temp_PCS < PCS_MIN_VALUE * 10)
 			Temp_PCS = PCS_MIN_VALUE * 10;
-		if (SOC < SOC_LOW_BOUND)		
+		if (SOC < SOC_LOW_BOUND * 10)		
 			Temp_PCS = 0;
 	}
 	//if netload lower than min, es will charge
 	else if (net_load[i][j] < MIN)
 	{
-		Temp_PCS = -(MIN - net_load[i][j]) * PCS_RATE * 10;		//单位是百瓦所以乘10
+		Temp_PCS = -(MIN - net_load[i][j]) * PCS_RATE * 10 * 14;		//单位是百瓦所以乘10
 		if (Temp_PCS < -PCS_MAX_VALUE * 10)
 			Temp_PCS = -PCS_MAX_VALUE * 10;
 		else if (Temp_PCS > -PCS_MIN_VALUE * 10)
 			Temp_PCS = -PCS_MIN_VALUE * 10;
-		if (SOC < SOC_LOW_BOUND)
+		if (SOC > SOC_UP_BOUND * 10)
 			Temp_PCS = 0;
 	}
 	//if netload in normal field, es will hold
@@ -65,8 +76,20 @@ int  Call_EMS()
 		Temp_PCS = 0;
 	}
 
-	GetLocalTime(&st);		//get time
-	/*sprintf_s(time, "'%d-%d-%d %d:%d:%d.%d'", st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds);
+	// Process for test
+	int inter;
+	inter = Temp_PCS / 36;
+	SOC = SOC - inter;
+	GetLocalTime(&st);
+	sprintf_s(time, "'%d-%d-%d %d:%d:%d.%d'", st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds);
+	sprintf_s(SQL_com, "INSERT INTO estimate VALUES( %s, %d, %d, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)", time, p, (int)SOC);
+	result = PQexec(conn, SQL_com);
+	std::cout << PQresultErrorMessage(result);
+	p++;
+	////////////////////////////////
+
+	/*GetLocalTime(&st);		//get time
+	sprintf_s(time, "'%d-%d-%d %d:%d:%d.%d'", st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds);
 	sprintf_s(SQL_com, "INSERT INTO pcs_control VALUES( %s, %d)", time, Temp_PCS);
 	result = PQexec(conn, SQL_com);
 	std::cout << PQresultErrorMessage(result);*/
@@ -75,6 +98,8 @@ int  Call_EMS()
 	//file write for test
 	f1 << Temp_PCS << ", ";
 	f2 << net_load[i][j] << ", ";
+	f3 << SOC << ", ";
+	f4 << inter << ", ";
 	/////////////////////
 
 	i++;
@@ -83,6 +108,8 @@ int  Call_EMS()
 		//file write for test
 		f1 << "\n";
 		f2 << "\n";
+		f3 << "\n";
+		f4 << "\n";
 		/////////////////////
 
 		i = 1;
@@ -92,14 +119,19 @@ int  Call_EMS()
 			//file close for test
 			f1.close();
 			f2.close();
+			f3.close();
+			f4.close();
 			/////////////////////
-
+			j = 0;
+			i = 1;
 			return 0;
 		}
 	}
 	//file close for test
 	f1.close();
 	f2.close();
+	f3.close();
+	f4.close();
 	/////////////////////
 }
 
@@ -120,7 +152,7 @@ int Check_SOC()
 	//get PCS from es
 	result = PQexec(conn, "SELECT * FROM pcs_control WHERE times in (select max(times) from pcs_control)");
 	std::cout << PQresultErrorMessage(result);
-	s = PQgetvalue(result, 0, 2);
+	s = PQgetvalue(result, 0, 1);
 	cur_PCS = atof(s);
 
 	//if SOC is too high & es is charging or too low & es is discharging, stop control

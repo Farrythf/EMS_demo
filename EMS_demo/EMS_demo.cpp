@@ -43,11 +43,11 @@ int main()
 	Data_load();								//Load pv and load data from csv file
 	GEngine.StartEngine();						//timer's engine starts
 	timer tt;									//timer instantiate
-	GEngine.AddTimer(&tt, 1, 1000, INFINITY);	//timer 1 init
-	GEngine.AddTimer(&tt, 2, 1000, INFINITE);	//timer 2 init
+	GEngine.AddTimer(&tt, 1, 100000, INFINITY);	//timer 1 init
+	GEngine.AddTimer(&tt, 2, 100000, INFINITE);	//timer 2 init
 
 	while (1) {
-		//Call_EMS();
+		Call_EMS();
 	}
 												//never reach here//
 	return 0;
