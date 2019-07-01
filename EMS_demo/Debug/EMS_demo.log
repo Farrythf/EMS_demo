@@ -1,16 +1,17 @@
 ﻿  Simple_Algorithms.cpp
-C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(49,12): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(54,53): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(65,54): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(150,16): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(55,12): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(60,53): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(71,54): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(87,15): warning C4244:  '=': conversion from 'float' to 'int', possible loss of data
 C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(156,16): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(188,12): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(192,11): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(196,13): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(201,28): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(211,28): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(182,7): warning C4101:  'SQL_com': unreferenced local variable
-C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(181,7): warning C4101:  'time': unreferenced local variable
-C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(181,7): warning C4101: C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(243) : warning C4715: 'Call_EMS_t': not all control paths return a value
-C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(181,7): warning C4101: C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(136) : warning C4715: 'Call_EMS': not all control paths return a value
+C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(162,16): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(194,12): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(198,11): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(202,13): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(207,28): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(217,28): warning C4244:  '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(188,7): warning C4101:  'SQL_com': unreferenced local variable
+C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(187,7): warning C4101:  'time': unreferenced local variable
+C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(187,7): warning C4101: C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(249) : warning C4715: 'Call_EMS_t': not all control paths return a value
+C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(187,7): warning C4101: C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\EMS_demo\Simple_Algorithms.cpp(142) : warning C4715: 'Call_EMS': not all control paths return a value
   EMS_demo.vcxproj -> C:\Users\thf-m\OneDrive\Documents\vs_programme\EMS_demo\Debug\EMS_demo.exe

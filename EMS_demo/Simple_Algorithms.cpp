@@ -84,7 +84,7 @@ int  Call_EMS()
 
 	// Process for test
 	int inter;
-	inter = Temp_PCS / 36;
+	inter = round((float)Temp_PCS / 36);
 	SOC = SOC - inter;
 	GetLocalTime(&st);
 	sprintf_s(time, "'%d-%d-%d %d:%d:%d.%d'", st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds);
