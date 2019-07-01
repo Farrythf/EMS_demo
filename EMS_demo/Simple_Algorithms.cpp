@@ -1,4 +1,10 @@
-﻿#include "M_depend.h"
+﻿//Description: This file is used for Calculating PCS and updating database
+
+//author Hongfei Tian @ GEIRINA
+
+//Last modify 2019-06-28
+
+#include "M_depend.h"
 
 #define SOC_UP_BOUND 90
 #define SOC_LOW_BOUND 20
