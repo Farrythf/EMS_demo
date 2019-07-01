@@ -1,6 +1,13 @@
 // EMS_demo.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
+//Description: The program is used for the demo energy management of ESS and PV.
+
+//author Hongfei Tian @ GEIRINA
+
+//Version 1.0, this version pass the test 
+
+//Creation date 2019-06-26
 
 #include "M_depend.h"
 using namespace std;

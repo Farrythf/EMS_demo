@@ -1,5 +1,9 @@
 #pragma once
 
+//author Hongfei Tian @ GEIRINA
+
+//Last modify 2019-06-28
+
 #ifndef _M_DEPEND_H
 #define _M_DEPEND_H
 

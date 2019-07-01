@@ -1,4 +1,10 @@
-﻿#include "TimerEngine.h"
+﻿//Description: This file is used for constructing timer
+
+//author Hongfei Tian @ GEIRINA
+
+//Last modify 2019-06-28
+
+#include "TimerEngine.h"
 #include <process.h>
 #include <assert.h>
 

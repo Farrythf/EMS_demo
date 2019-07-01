@@ -1,3 +1,9 @@
+//Description: This file is used for loading data
+
+//author Hongfei Tian @ GEIRINA
+
+//Last modify 2019-06-28
+
 #include "Data_load.h"
 
 float load[96][12], PV[96][12], net_load[96][12];
