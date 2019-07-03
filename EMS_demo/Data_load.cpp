@@ -14,7 +14,7 @@ float load[96][12], PV[96][12], net_load[96][12];
 #define CAPACITY_PV 1500
 using namespace std;
 
-void Data_load()
+void  Data_load()
 {
 	//read data from load file
 	ifstream file("GEIRINA_load.csv", ios::in);

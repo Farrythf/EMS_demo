@@ -8,4 +8,5 @@
 #define _SIMPLE_ALGORITHMS_H
 	int  Call_EMS();
 	int	 Check_SOC();
+	int Call_EMS_t();
 #endif

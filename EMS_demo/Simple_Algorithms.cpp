@@ -174,7 +174,7 @@ int Check_SOC()
 }
 
 
-int  Call_EMS_t()				//for future test
+int Call_EMS_t()				//for future test
 {
 	std::ofstream f1("PSC.out", std::ios::app);
 	if (!f1)
